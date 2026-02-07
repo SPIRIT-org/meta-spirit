@@ -1,32 +1,6 @@
 // Spirit Phone Audio Configuration
-/dts-v1/;
 
-/ {
-	/* TODO: replace with real I²S controller reference */
-	sampler_dummy: sampler_dummy {
-		status = "disabled";
-		#sound-dai-cells = <0>;
-	};
-
-	sound {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "Spirit Phone Audio";
-		simple-audio-card,format = "i2s";
-
-		simple-audio-card,cpu {
-			status = "disabled";
-			sound-dai = <&sampler_dummy>; /* TODO: real I²S controller + port */
-		};
-
-		/*
-		 * Codec side: dummy endpoint.
-		 * This represents the MEMS mic as a passive I²S source
-		 * with no registers or control bus.
-		 */
-
-		simple-audio-card,codec {
-			status = "disabled";
-			sound-dai = <&sampler_dummy>;
-		};
-	};
-};
+/*
+ * Placeholder for Spirit Phone audio nodes.
+ * Populate with real hardware description when finalized.
+ */

@@ -1,0 +1,40 @@
+/*
+ * Spirit Phone Power/PMIC Configuration
+ *
+ * TODO: Move this node under the correct I2C controller once the bus is known.
+ * For now it's defined at root level with status="disabled" so it compiles
+ * but has no runtime effect.
+ */
+
+&{/} {
+	spirit_pmic: spirit-pmic {
+		compatible = "ti,tps65023";
+		status = "disabled";
+
+		/* Address 0x48 - will need proper reg when moved under I2C bus */
+
+		regulators {
+			VDCDC1 {
+				regulator-name = "3v3a";
+				regulator-boot-on;
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+			};
+
+			VDCDC2 {
+				regulator-name = "1v8";
+				regulator-always-on;
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1800000>;
+			};
+
+			VDCDC3 {
+				regulator-name = "3v3b";
+				regulator-always-on;
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+			};
+		};
+	};
+};
+
