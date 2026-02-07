@@ -4,7 +4,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 SRC_URI:append:spirit-phone-cm5 = " \
 	file://spirit-phone-cm5.dtsi \
 	file://spirit-phone-power.dtsi \
-	file://spirit-phone-audio.dtsi \
 	file://0001-include-spirit-phone-cm5-dtsi.patch \
 	"
 
@@ -13,8 +12,6 @@ do_configure:append:spirit-phone-cm5() {
     cp ${WORKDIR}/spirit-phone-cm5.dtsi \
        ${S}/arch/arm64/boot/dts/broadcom/
 	 cp ${WORKDIR}/spirit-phone-power.dtsi \
-		 ${S}/arch/arm64/boot/dts/broadcom/
-	 cp ${WORKDIR}/spirit-phone-audio.dtsi \
 		 ${S}/arch/arm64/boot/dts/broadcom/
 }
 	

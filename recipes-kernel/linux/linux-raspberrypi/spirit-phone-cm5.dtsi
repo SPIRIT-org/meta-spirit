@@ -1,4 +1,10 @@
-/*
- * Placeholder for Spirit Phone CM5 board-specific nodes.
- * Populate with real hardware description when finalized.
- */
+&{/} {
+    my-custom-leds {
+        compatible = "gpio-leds";
+        testled0 {
+            gpios = <&gpio 21 0>;
+            default-state = "off";
+            label = "test-led0";
+        };
+    };
+};
