@@ -1,14 +1,19 @@
 header:
   version: 9
- 
+
 repos:
   meta-spirit:
-  poky:
-    url: https://git.yoctoproject.org/git/poky
-    commit: 6400741e0c11d1620a5ebe394d24deec295236f9
+  bitbake:
+    url: https://git.openembedded.org/bitbake
+    commit: 8dcf084522b9c66a6639b5f117f554fde9b6b45a
+    layers:
+      .: disabled
+  meta-openembedded-core:
+    url: https://git.openembedded.org/openembedded-core
+    commit: d50e4680ed6f930582d907b37c9ed545a89f5c27
     layers:
       meta:
-      meta-poky:
+      meta-skeleton:
   meta-raspberrypi:
     url: https://git.yoctoproject.org/git/meta-raspberrypi
     commit: aaf976a665daa7e520545908adef8a0e9410b57f
