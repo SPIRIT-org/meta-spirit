@@ -6,6 +6,7 @@ choice
     default KCONF_MACHINE_CM5
     help
       Pick the machine hardware configuration for the build.
+      For more information see - https://docs.yoctoproject.org/ref-manual/variables.html#term-MACHINE
 
 config KCONF_MACHINE_CM5
     bool "spirit-phone-cm5"
