@@ -8,6 +8,6 @@ config KAS_INCLUDE_COMMON
       It contains essential base configuration.
 
 source "kas/machine/Kconfig"
-source "kas/distro/Kconfig"
+source "kas/target/Kconfig"
 source "kas/packages/Kconfig"
 source "kas/features/Kconfig"

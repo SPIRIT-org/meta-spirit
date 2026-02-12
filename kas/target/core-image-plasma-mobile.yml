@@ -1,0 +1,11 @@
+header:
+  version: 9
+
+target: core-image-plasma-mobile
+
+local_conf_header:
+  target: |
+    # Append features only for the Plasma Mobile image
+    DISTRO_FEATURES += "wayland x11 pam systemd usrmerge xattr opengl polkit pulseaudio alsa kde"
+    # To include ffmpeg
+    LICENSE_FLAGS_ACCEPTED += "commercial"

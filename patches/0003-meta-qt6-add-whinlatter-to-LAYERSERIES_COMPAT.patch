@@ -1,0 +1,25 @@
+From a7d012c8a3a9b23a6093ea53be966a1eb418ee52 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 18:48:25 +0100
+Subject: [PATCH] add whinlatter to LAYERSERIES_COMPAT
+
+---
+ conf/layer.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/conf/layer.conf b/conf/layer.conf
+index 9b1a066ff235..c76271e00b14 100644
+--- a/conf/layer.conf
++++ b/conf/layer.conf
+@@ -35,7 +35,7 @@ LAYERVERSION_qt6-layer = "1"
+ 
+ LAYERDEPENDS_qt6-layer = "core openembedded-layer meta-python"
+ 
+-LAYERSERIES_COMPAT_qt6-layer = "kirkstone langdale mickledore nanbield scarthgap styhead walnascar"
++LAYERSERIES_COMPAT_qt6-layer = "kirkstone langdale mickledore nanbield scarthgap styhead walnascar whinlatter"
+ 
+ LICENSE_PATH += "${LAYERDIR}/licenses"
+ 
+-- 
+2.52.0
+

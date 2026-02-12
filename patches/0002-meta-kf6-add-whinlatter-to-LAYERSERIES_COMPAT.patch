@@ -1,0 +1,25 @@
+From d984e23d37d8d5d5893adb0e31f9c3428b6f7275 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 00:22:49 +0100
+Subject: [PATCH] add whinlatter to LAYERSERIES_COMPAT
+
+---
+ conf/layer.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/conf/layer.conf b/conf/layer.conf
+index 9dbdd0b3a0c6..c3935ff639bc 100644
+--- a/conf/layer.conf
++++ b/conf/layer.conf
+@@ -18,7 +18,7 @@ BBFILE_PRIORITY_kf6 = "6"
+ 
+ LICENSE_PATH += "${LAYERDIR}/conf/licenses"
+ 
+-LAYERSERIES_COMPAT_kf6 = "kirkstone scarthgap styhead walnascar"
++LAYERSERIES_COMPAT_kf6 = "kirkstone scarthgap styhead walnascar whinlatter"
+ 
+ # disable check per default until all recipes are updated
+ KF6_REUSE_LICENSECHECK_ENABLED = "0"
+-- 
+2.52.0
+

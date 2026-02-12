@@ -1,0 +1,79 @@
+From 1c17d69e27c03f58a3a019240e22ce28263a96d3 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 18:53:35 +0100
+Subject: [PATCH] meta-qt6 remove S assigment
+
+---
+ recipes-core/minizip/minizip_1.2.11.bb      | 2 --
+ recipes-python/pyqt6/python3-pyqt6_6.8.0.bb | 1 -
+ recipes-python/pyside6/python3-pyside6.inc  | 2 --
+ recipes-qt/qt6/qt6-git.inc                  | 2 --
+ recipes-qt/squish/squish_8.1.0.bb           | 1 -
+ 5 files changed, 8 deletions(-)
+
+diff --git a/recipes-core/minizip/minizip_1.2.11.bb b/recipes-core/minizip/minizip_1.2.11.bb
+index 5fd004baeb1b..437754ad8fd5 100644
+--- a/recipes-core/minizip/minizip_1.2.11.bb
++++ b/recipes-core/minizip/minizip_1.2.11.bb
+@@ -9,8 +9,6 @@ LIC_FILES_CHKSUM = "file://zip.h;beginline=14;endline=30;md5=8eaa8535a3a1a2296b3
+ SRC_URI = "${SOURCEFORGE_MIRROR}/libpng/zlib/${PV}/zlib-${PV}.tar.xz"
+ UPSTREAM_CHECK_URI = "http://zlib.net/"
+ 
+-S = "${WORKDIR}/zlib-${PV}/contrib/minizip"
+-
+ SRC_URI[md5sum] = "85adef240c5f370b308da8c938951a68"
+ SRC_URI[sha256sum] = "4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066"
+ 
+diff --git a/recipes-python/pyqt6/python3-pyqt6_6.8.0.bb b/recipes-python/pyqt6/python3-pyqt6_6.8.0.bb
+index 7ae7398727f1..940eef797754 100644
+--- a/recipes-python/pyqt6/python3-pyqt6_6.8.0.bb
++++ b/recipes-python/pyqt6/python3-pyqt6_6.8.0.bb
+@@ -11,7 +11,6 @@ PYPI_PACKAGE = "PyQt6"
+ SRC_URI[sha256sum] = "6d8628de4c2a050f0b74462e4c9cb97f839bf6ffabbca91711722ffb281570d9"
+ SRC_URI += "file://0001-Fix-build-with-Qt-6.8.2.patch"
+ 
+-S = "${WORKDIR}/PyQt6-${PV}"
+ B = "${S}/build"
+ 
+ DEPENDS += " \
+diff --git a/recipes-python/pyside6/python3-pyside6.inc b/recipes-python/pyside6/python3-pyside6.inc
+index 770a2e7ee561..ea805035785a 100644
+--- a/recipes-python/pyside6/python3-pyside6.inc
++++ b/recipes-python/pyside6/python3-pyside6.inc
+@@ -25,8 +25,6 @@ QT_MODULE_BRANCH = "dev"
+ 
+ FILESEXTRAPATHS:prepend := "${THISDIR}/pyside6:"
+ 
+-S = "${WORKDIR}/git"
+-
+ EXTRA_OECMAKE += "-DBUILD_TESTS=FALSE"
+ EXTRA_OECMAKE:append:class-target = " -DQFP_SHIBOKEN_HOST_PATH=${STAGING_EXECPREFIXDIR} -DQFP_PYTHON_HOST_PATH=${PYTHON}"
+ 
+diff --git a/recipes-qt/qt6/qt6-git.inc b/recipes-qt/qt6/qt6-git.inc
+index 6256744dfdb7..e9df2067fcdc 100644
+--- a/recipes-qt/qt6/qt6-git.inc
++++ b/recipes-qt/qt6/qt6-git.inc
+@@ -12,8 +12,6 @@ SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE_REPO};name=${QT_MODULE};${QT_
+ 
+ CVE_PRODUCT ?= "qt:${BPN} qt:qt"
+ 
+-S = "${WORKDIR}/git"
+-
+ PV = "${QT_VERSION}"
+ 
+ SRCREV = "${SRCREV_${QT_MODULE}}"
+diff --git a/recipes-qt/squish/squish_8.1.0.bb b/recipes-qt/squish/squish_8.1.0.bb
+index 2b17cf0b9165..12c8ce937640 100644
+--- a/recipes-qt/squish/squish_8.1.0.bb
++++ b/recipes-qt/squish/squish_8.1.0.bb
+@@ -25,7 +25,6 @@ SRC_URI = "\
+ SRC_URI[squish.sha256sum] = "2ff96e9f2e8594833c186d0b34f12f2014b2fcd30f087e53edc39066587c42b6"
+ SRC_URI[qt-squish-embedded.sha256sum] = "729870aafba482d7a772c930209830796a5c9d4a8ab0c49e8caa54738f1032e8"
+ 
+-S = "${WORKDIR}/squish-${PV}-qt-embedded-src"
+ B = "${WORKDIR}/build"
+ 
+ DEPENDS += "\
+-- 
+2.51.0
+

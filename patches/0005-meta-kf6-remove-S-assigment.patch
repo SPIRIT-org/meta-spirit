@@ -1,0 +1,103 @@
+From e9d94d76c67fc51afcff34aaf1dec1ccb13aeac6 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 04:31:34 +0100
+Subject: [PATCH] meta-kf6 remove S assigment
+
+---
+ recipes-kdesupport/polkit-qt-1.inc      | 1 -
+ recipes-support/libaccounts-glib_git.bb | 2 --
+ recipes-support/libaccounts-qt_git.bb   | 2 --
+ recipes-support/libdmtx_0.7.8.bb        | 1 -
+ recipes-support/qcoro.inc               | 1 -
+ recipes-support/signond_git.bb          | 2 --
+ recipes-support/zxing-cpp.inc           | 2 --
+ 7 files changed, 11 deletions(-)
+
+diff --git a/recipes-kdesupport/polkit-qt-1.inc b/recipes-kdesupport/polkit-qt-1.inc
+index 05dd04935431..b3254aeea228 100644
+--- a/recipes-kdesupport/polkit-qt-1.inc
++++ b/recipes-kdesupport/polkit-qt-1.inc
+@@ -10,7 +10,6 @@ PR = "r0"
+ DEPENDS = "qtbase polkit"
+ 
+ SRC_URI = "git://invent.kde.org/libraries/polkit-qt-1.git;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+ 
+ inherit kf6-cmake-framework
+ 
+diff --git a/recipes-support/libaccounts-glib_git.bb b/recipes-support/libaccounts-glib_git.bb
+index 2b41e5a884bb..844214d33493 100644
+--- a/recipes-support/libaccounts-glib_git.bb
++++ b/recipes-support/libaccounts-glib_git.bb
+@@ -14,8 +14,6 @@ inherit meson pkgconfig gobject-introspection vala
+ SRC_URI = "git://gitlab.com/accounts-sso/libaccounts-glib.git;branch=master;protocol=https"
+ SRCREV = "c823beed760ab2428f3355db06f48c4b5c14c62e"
+ 
+-S = "${WORKDIR}/git"
+-
+ DEPENDS = " \
+     glib-2.0 \
+     libxml2 \
+diff --git a/recipes-support/libaccounts-qt_git.bb b/recipes-support/libaccounts-qt_git.bb
+index 6d43dab9d863..ffa6ab360eb0 100644
+--- a/recipes-support/libaccounts-qt_git.bb
++++ b/recipes-support/libaccounts-qt_git.bb
+@@ -17,8 +17,6 @@ SRC_URI = " \
+ "
+ SRCREV = "57641e601bbb1cd1dd63d616a83eab341515c3ee"
+ 
+-S = "${WORKDIR}/git"
+-
+ DEPENDS += " \
+     qtbase \
+     glib-2.0 \
+diff --git a/recipes-support/libdmtx_0.7.8.bb b/recipes-support/libdmtx_0.7.8.bb
+index 26a02d5a14f6..c9f64a66afc4 100644
+--- a/recipes-support/libdmtx_0.7.8.bb
++++ b/recipes-support/libdmtx_0.7.8.bb
+@@ -13,4 +13,3 @@ inherit autotools
+ 
+ SRCREV = "500d7af6106713610a0f8b2d96aefa81912b96bc"
+ SRC_URI = "git://github.com/dmtx/libdmtx;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-support/qcoro.inc b/recipes-support/qcoro.inc
+index bb0f0f90e44d..b3ce264c8c3b 100644
+--- a/recipes-support/qcoro.inc
++++ b/recipes-support/qcoro.inc
+@@ -16,7 +16,6 @@ DEPENDS = " \
+ "
+ 
+ SRC_URI = "git://github.com/danvratil/qcoro.git;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+ 
+ inherit qt6-cmake
+ 
+diff --git a/recipes-support/signond_git.bb b/recipes-support/signond_git.bb
+index c2df30eb44cb..f17f5fdf7339 100644
+--- a/recipes-support/signond_git.bb
++++ b/recipes-support/signond_git.bb
+@@ -18,8 +18,6 @@ SRC_URI = " \
+ "
+ SRCREV = "c8ad98249af541514ff7a81634d3295e712f1a39"
+ 
+-S = "${WORKDIR}/git"
+-
+ DEPENDS += " \
+     qtbase \
+ "
+diff --git a/recipes-support/zxing-cpp.inc b/recipes-support/zxing-cpp.inc
+index 117f336aeeb5..d161792022fe 100644
+--- a/recipes-support/zxing-cpp.inc
++++ b/recipes-support/zxing-cpp.inc
+@@ -11,8 +11,6 @@ SRC_URI = " \
+     git://github.com/zxing-cpp/zxing-cpp.git;nobranch=1;protocol=https \
+ "
+ 
+-S = "${WORKDIR}/git"
+-
+ EXTRA_OECMAKE += " \
+     -DBUILD_EXAMPLES=OFF \
+     -DBUILD_DEPENDENCIES=LOCAL \
+-- 
+2.51.0
+

@@ -1,0 +1,24 @@
+From 2f02ee01765e834faca8aacb08271c50f410ba23 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 00:20:07 +0100
+Subject: [PATCH] add whinlatter to LAYERSERIES_COMPAT
+
+---
+ conf/layer.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/conf/layer.conf b/conf/layer.conf
+index a28925de83a3..c1005f4ea214 100644
+--- a/conf/layer.conf
++++ b/conf/layer.conf
+@@ -19,6 +19,6 @@ BBFILE_PATTERN_kde = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_kde = "8"
+ 
+ LAYERDEPENDS_kde += "openembedded-layer kf6 qt6-layer"
+-LAYERSERIES_COMPAT_kde = "scarthgap styhead walnascar"
++LAYERSERIES_COMPAT_kde = "scarthgap styhead walnascar whinlatter"
+ 
+ require conf/kdeqtcompat.conf
+-- 
+2.52.0
+

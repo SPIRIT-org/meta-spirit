@@ -1,0 +1,32 @@
+# Submenu for selecting TARGET
+menu "Select build target"
+
+choice
+    prompt "Choose target image"
+    default KCONF_TARGET_MINIMAL
+    help
+      Select the image target for `kas build` invocation. From shell it can be started as `bitbake <target>`.
+      For more info see - https://docs.yoctoproject.org/ref-manual/images.html#images
+
+config KCONF_TARGET_MINIMAL
+    bool "Minimal GUI-less (core-image-minimal)"
+    help
+      Small image, fastest builds. Best for kernel and driver work.
+
+config KCONF_TARGET_PLASMA
+    bool "Plasma Mobile demo system (core-image-plasma-mobile)"
+    help
+      Full GUI stack for UI and app experimentation.
+
+endchoice
+
+# Map KCONF_TARGET to a kas YAML to include
+config KAS_INCLUDE_TARGET
+    string
+    default "/repo/kas/target/core-image-minimal.yml" if KCONF_TARGET_MINIMAL
+    default "/repo/kas/target/core-image-plasma-mobile.yml" if KCONF_TARGET_PLASMA
+    help
+      Selected image target for `kas build` invocation. From shell it can be started as `bitbake <target>`.
+      For more info see - https://docs.yoctoproject.org/ref-manual/images.html#images
+
+endmenu

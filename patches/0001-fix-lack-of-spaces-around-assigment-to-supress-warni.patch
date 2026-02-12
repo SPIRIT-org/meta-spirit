@@ -1,0 +1,25 @@
+From c0cb47905843e0c6c9d72e31037465c871e70bd5 Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 22:44:50 +0100
+Subject: [PATCH] fix lack of spaces around assigment to supress warning
+
+---
+ recipes-kf6/tier1/breeze-icons.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/recipes-kf6/tier1/breeze-icons.inc b/recipes-kf6/tier1/breeze-icons.inc
+index bbb43609e603..12247a464cb5 100644
+--- a/recipes-kf6/tier1/breeze-icons.inc
++++ b/recipes-kf6/tier1/breeze-icons.inc
+@@ -12,7 +12,7 @@ inherit kf6-cmake-framework
+ # due to the CMAKE_FIND_ROOT_PATH settings
+ EXTRA_OECMAKE:class-target += " -DBASH_EXE=`which bash`"
+ 
+-SRC_URI:append:class-target= " \
++SRC_URI:append:class-target = " \
+     file://use_generate_symbolic_dark_sysroot.patch \
+ "
+ 
+-- 
+2.51.0
+

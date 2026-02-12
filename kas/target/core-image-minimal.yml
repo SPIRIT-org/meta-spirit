@@ -1,0 +1,4 @@
+header:
+  version: 9
+
+target: core-image-minimal

@@ -1,0 +1,469 @@
+From d2ef6408e328657a0f3f859399f82eb9fec5a23a Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Wed, 11 Feb 2026 04:49:36 +0100
+Subject: [PATCH] meta-kde-remove-S-assigment
+
+patch /repo/patches/0003-meta-kde-remove-S-assigment.patch applied by kas
+---
+ recipes-extragear/edu/gcompris.inc                              | 2 --
+ recipes-extragear/sdk/heaptrack.inc                             | 1 -
+ recipes-meta-oe-backports/nanbield-support/appstream_1.0.0.bb   | 2 --
+ .../scrathgap-support/libinput/libinput_1.28.1.bb               | 1 -
+ recipes-plasma-bigscreen/aura-browser_5.27.80.bb                | 1 -
+ recipes-plasma-bigscreen/plank-player_5.27.80.bb                | 1 -
+ recipes-plasma-bigscreen/plasma-bigscreen_5.27.80.bb            | 1 -
+ recipes-plasma-bigscreen/plasma-remotecontrollers_5.27.80.bb    | 1 -
+ recipes-playground/arkade.inc                                   | 1 -
+ recipes-playground/futuresql.inc                                | 1 -
+ recipes-playground/kirigami-addons.inc                          | 1 -
+ recipes-playground/kquickimageeditor.inc                        | 1 -
+ recipes-playground/plasma-camera.inc                            | 1 -
+ recipes-playground/plasma-settings_25.12.0.bb                   | 1 -
+ recipes-playground/washipad.inc                                 | 1 -
+ recipes-support/ddcutil_git.bb                                  | 1 -
+ recipes-support/hack-font_3.003.bb                              | 2 --
+ recipes-support/kcolorpicker.inc                                | 1 -
+ recipes-support/kimageannotator.inc                             | 1 -
+ recipes-support/kpeoplevcard.inc                                | 1 -
+ recipes-support/libchewing.inc                                  | 2 --
+ recipes-support/libdisplay-info_0.3.0.bb                        | 1 -
+ recipes-support/libpinyin.inc                                   | 2 --
+ recipes-support/libqalculate.inc                                | 2 --
+ recipes-support/libreoffice-dictionaries_25.2.3.bb              | 2 --
+ recipes-support/maliit-framework-qt6.inc                        | 1 -
+ recipes-support/maliit-keyboard-qt6.inc                         | 1 -
+ recipes-support/plasma-keyboard_git.bb                          | 1 -
+ recipes-support/pulseaudio-qt.inc                               | 1 -
+ recipes-support/qml-box2d.inc                                   | 1 -
+ recipes-support/qmltermwidget.inc                               | 1 -
+ recipes-support/qtkeychain.inc                                  | 1 -
+ recipes-support/sddm/sddm.inc                                   | 2 --
+ recipes-support/simplelogin.inc                                 | 1 -
+ recipes-support/ttf-noto-cjk_2.003.bb                           | 2 --
+ recipes-support/ttf-noto_2025.11.01.bb                          | 2 --
+ 36 files changed, 46 deletions(-)
+
+diff --git a/recipes-extragear/edu/gcompris.inc b/recipes-extragear/edu/gcompris.inc
+index cfa76df835df..5a1ba6fc6f52 100644
+--- a/recipes-extragear/edu/gcompris.inc
++++ b/recipes-extragear/edu/gcompris.inc
+@@ -30,8 +30,6 @@ RDEPENDS:${PN} += " \
+
+ SRC_URI = "git://invent.kde.org/education/${BPN};nobranch=1;protocol=https"
+
+-S = "${WORKDIR}/git"
+-
+ inherit cmake_kdeapp
+ inherit kf6-kcoreaddons
+ inherit kf6-kconfig
+diff --git a/recipes-extragear/sdk/heaptrack.inc b/recipes-extragear/sdk/heaptrack.inc
+index 8a2b2c79298c..54178a051649 100644
+--- a/recipes-extragear/sdk/heaptrack.inc
++++ b/recipes-extragear/sdk/heaptrack.inc
+@@ -12,7 +12,6 @@ DEPENDS = "zlib boost libunwind elfutils"
+
+ SRC_URI = "git://invent.kde.org/sdk/${BPN};nobranch=1;protocol=https"
+ SRC_URI += "file://0001-cmake-Fix-C-compatibility-of-libunwind-probes.patch"
+-S = "${WORKDIR}/git"
+
+ inherit cmake
+
+diff --git a/recipes-meta-oe-backports/nanbield-support/appstream_1.0.0.bb b/recipes-meta-oe-backports/nanbield-support/appstream_1.0.0.bb
+index 3f8bfcd2638f..0d79c9723b82 100644
+--- a/recipes-meta-oe-backports/nanbield-support/appstream_1.0.0.bb
++++ b/recipes-meta-oe-backports/nanbield-support/appstream_1.0.0.bb
+@@ -30,8 +30,6 @@ SRC_URI = " \
+ "
+ SRC_URI[sha256sum] = "ef23477a380e8b525e92cfa87687f1146b9cef74c641349a1ae11250be5401d0"
+
+-S = "${WORKDIR}/AppStream-${PV}"
+-
+ PACKAGECONFIG ?= "${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)}"
+
+ PACKAGECONFIG[systemd] = "-Dsystemd=true,-Dsystemd=false,systemd"
+diff --git a/recipes-meta-oe-backports/scrathgap-support/libinput/libinput_1.28.1.bb b/recipes-meta-oe-backports/scrathgap-support/libinput/libinput_1.28.1.bb
+index 767a7675f287..39f8b05e6a09 100644
+--- a/recipes-meta-oe-backports/scrathgap-support/libinput/libinput_1.28.1.bb
++++ b/recipes-meta-oe-backports/scrathgap-support/libinput/libinput_1.28.1.bb
+@@ -16,7 +16,6 @@ SRC_URI = "git://gitlab.freedesktop.org/libinput/libinput.git;protocol=https;bra
+            file://run-ptest \
+            "
+ SRCREV = "4f7b4ef0e4eb5d569df36be387579858eba349bb"
+-S = "${WORKDIR}/git"
+
+ UPSTREAM_CHECK_REGEX = "libinput-(?P<pver>\d+\.\d+\.(?!9\d+)\d+)"
+
+diff --git a/recipes-plasma-bigscreen/aura-browser_5.27.80.bb b/recipes-plasma-bigscreen/aura-browser_5.27.80.bb
+index 73399547902c..07c29701f4df 100644
+--- a/recipes-plasma-bigscreen/aura-browser_5.27.80.bb
++++ b/recipes-plasma-bigscreen/aura-browser_5.27.80.bb
+@@ -4,4 +4,3 @@
+ require ${PN}.inc
+ SRCREV = "69bf5a2234ce490edc7018adcb82949c987fcf43"
+ SRC_URI = "git://invent.kde.org/plasma-bigscreen/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-plasma-bigscreen/plank-player_5.27.80.bb b/recipes-plasma-bigscreen/plank-player_5.27.80.bb
+index ac0ef4bfbb00..dab98fdab540 100644
+--- a/recipes-plasma-bigscreen/plank-player_5.27.80.bb
++++ b/recipes-plasma-bigscreen/plank-player_5.27.80.bb
+@@ -4,4 +4,3 @@
+ require ${PN}.inc
+ SRCREV = "d113e535f2e2682bfaeb09262e36fb6ef5360d82"
+ SRC_URI = "git://invent.kde.org/plasma-bigscreen/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-plasma-bigscreen/plasma-bigscreen_5.27.80.bb b/recipes-plasma-bigscreen/plasma-bigscreen_5.27.80.bb
+index e493584cbb22..e4e1661a3c83 100644
+--- a/recipes-plasma-bigscreen/plasma-bigscreen_5.27.80.bb
++++ b/recipes-plasma-bigscreen/plasma-bigscreen_5.27.80.bb
+@@ -4,4 +4,3 @@
+ require ${PN}.inc
+ SRCREV = "a18482c36e055b9e32fa07e0b6cadd490c257c39"
+ SRC_URI = "git://invent.kde.org/plasma/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-plasma-bigscreen/plasma-remotecontrollers_5.27.80.bb b/recipes-plasma-bigscreen/plasma-remotecontrollers_5.27.80.bb
+index 322e9e7c3480..9cbc60190f21 100644
+--- a/recipes-plasma-bigscreen/plasma-remotecontrollers_5.27.80.bb
++++ b/recipes-plasma-bigscreen/plasma-remotecontrollers_5.27.80.bb
+@@ -4,4 +4,3 @@
+ require ${PN}.inc
+ SRCREV = "16d347453db2d03f158994b5c1dd2de0eea15772"
+ SRC_URI = "git://invent.kde.org/plasma-bigscreen/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-playground/arkade.inc b/recipes-playground/arkade.inc
+index 764770117928..2961e0605607 100644
+--- a/recipes-playground/arkade.inc
++++ b/recipes-playground/arkade.inc
+@@ -18,7 +18,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/games/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+ inherit mime-xdg
+diff --git a/recipes-playground/futuresql.inc b/recipes-playground/futuresql.inc
+index 49084094c718..c471af78d896 100644
+--- a/recipes-playground/futuresql.inc
++++ b/recipes-playground/futuresql.inc
+@@ -17,6 +17,5 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/libraries/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+diff --git a/recipes-playground/kirigami-addons.inc b/recipes-playground/kirigami-addons.inc
+index 91b7313e372e..364d040c842b 100644
+--- a/recipes-playground/kirigami-addons.inc
++++ b/recipes-playground/kirigami-addons.inc
+@@ -20,7 +20,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/libraries/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+ inherit kf6-kconfig
+diff --git a/recipes-playground/kquickimageeditor.inc b/recipes-playground/kquickimageeditor.inc
+index d0df97c09812..817c39dc865e 100644
+--- a/recipes-playground/kquickimageeditor.inc
++++ b/recipes-playground/kquickimageeditor.inc
+@@ -13,7 +13,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/libraries/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+ inherit kf6-kconfig
+diff --git a/recipes-playground/plasma-camera.inc b/recipes-playground/plasma-camera.inc
+index 2ff5b2018d51..a5a642b9fe39 100644
+--- a/recipes-playground/plasma-camera.inc
++++ b/recipes-playground/plasma-camera.inc
+@@ -20,7 +20,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/plasma-mobile/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+
+diff --git a/recipes-playground/plasma-settings_25.12.0.bb b/recipes-playground/plasma-settings_25.12.0.bb
+index 499933d6eee9..794708a1b39c 100644
+--- a/recipes-playground/plasma-settings_25.12.0.bb
++++ b/recipes-playground/plasma-settings_25.12.0.bb
+@@ -5,4 +5,3 @@ require ${PN}.inc
+ # v25.12.0
+ SRCREV = "21edd39cce3cedc884b9c0a7c3b45b84618e8219"
+ SRC_URI = "git://invent.kde.org/plasma-mobile/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-playground/washipad.inc b/recipes-playground/washipad.inc
+index bcaa7de6e59f..c7de94c96a8d 100644
+--- a/recipes-playground/washipad.inc
++++ b/recipes-playground/washipad.inc
+@@ -18,7 +18,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/graphics/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit cmake_kdeapp
+ inherit mime-xdg
+diff --git a/recipes-support/ddcutil_git.bb b/recipes-support/ddcutil_git.bb
+index 133af0cd64a3..4999c2a630bc 100644
+--- a/recipes-support/ddcutil_git.bb
++++ b/recipes-support/ddcutil_git.bb
+@@ -10,7 +10,6 @@ SRC_URI = " \
+
+ DEPENDS = "i2c-tools glib-2.0 kmod jansson"
+
+-S = "${WORKDIR}/git"
+ PV = "2.2.3"
+ SRCREV = "8660f29c0370ca093d45ea6c91277edd00d51301"
+
+diff --git a/recipes-support/hack-font_3.003.bb b/recipes-support/hack-font_3.003.bb
+index ff8e554a0ed7..11948aea38d0 100644
+--- a/recipes-support/hack-font_3.003.bb
++++ b/recipes-support/hack-font_3.003.bb
+@@ -11,8 +11,6 @@ inherit allarch fontcache
+
+ SRC_URI = "https://github.com/source-foundry/Hack/releases/download/v${PV}/Hack-v${PV}-ttf.tar.gz"
+ SRC_URI[sha256sum] = "7f592d091cbd2472f39af96e6c280cde3c27cab50a9c88746feb42918aa1888f"
+-S = "${WORKDIR}/sources-unpack"
+-UNPACKDIR = "${S}"
+
+ do_install:append() {
+     install -d ${D}${datadir}/fonts/truetype/
+diff --git a/recipes-support/kcolorpicker.inc b/recipes-support/kcolorpicker.inc
+index e9ada26376da..36394c6425b1 100644
+--- a/recipes-support/kcolorpicker.inc
++++ b/recipes-support/kcolorpicker.inc
+@@ -14,7 +14,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://github.com/ksnip/kColorPicker.git;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit qt6-cmake
+ inherit pkgconfig
+diff --git a/recipes-support/kimageannotator.inc b/recipes-support/kimageannotator.inc
+index 6ab5dda6c37d..67714233cf7e 100644
+--- a/recipes-support/kimageannotator.inc
++++ b/recipes-support/kimageannotator.inc
+@@ -17,7 +17,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://github.com/ksnip/kImageAnnotator.git;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit qt6-cmake
+ inherit pkgconfig
+diff --git a/recipes-support/kpeoplevcard.inc b/recipes-support/kpeoplevcard.inc
+index 9d46efce0803..615f76238c61 100644
+--- a/recipes-support/kpeoplevcard.inc
++++ b/recipes-support/kpeoplevcard.inc
+@@ -19,7 +19,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/pim/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit kf6-kconfig
+ inherit kf6-kcoreaddons
+diff --git a/recipes-support/libchewing.inc b/recipes-support/libchewing.inc
+index fcd09748513d..68044620a4a8 100644
+--- a/recipes-support/libchewing.inc
++++ b/recipes-support/libchewing.inc
+@@ -12,8 +12,6 @@ SRC_URI = " \
+     file://0002-Disable-genkeystroke-testapp.patch \
+ "
+
+-S = "${WORKDIR}/git"
+-
+ DEPENDS = " \
+     ncurses \
+     sqlite3 \
+diff --git a/recipes-support/libdisplay-info_0.3.0.bb b/recipes-support/libdisplay-info_0.3.0.bb
+index 538c0dfa7265..9d47ffd4c8e9 100644
+--- a/recipes-support/libdisplay-info_0.3.0.bb
++++ b/recipes-support/libdisplay-info_0.3.0.bb
+@@ -7,7 +7,6 @@ SRC_URI = "git://gitlab.freedesktop.org/emersion/libdisplay-info.git;branch=main
+
+ DEPENDS = "hwdata-native"
+
+-S = "${WORKDIR}/git"
+ SRCREV = "47a5590e9c4eb35d67651b8c05a55f1a48259329"
+
+ inherit meson pkgconfig
+diff --git a/recipes-support/libpinyin.inc b/recipes-support/libpinyin.inc
+index 1a18a812b696..c296af032bf4 100644
+--- a/recipes-support/libpinyin.inc
++++ b/recipes-support/libpinyin.inc
+@@ -21,8 +21,6 @@ SRC_URI:class-native = " \
+     file://0003-Add-option-to-disable-data-generation.patch \
+ "
+
+-S = "${WORKDIR}/git"
+-
+ DEPENDS = " \
+     db \
+     glib-2.0 \
+diff --git a/recipes-support/libqalculate.inc b/recipes-support/libqalculate.inc
+index fa244fe92ec0..521aa091e0b4 100644
+--- a/recipes-support/libqalculate.inc
++++ b/recipes-support/libqalculate.inc
+@@ -11,8 +11,6 @@ SRC_URI = " \
+     git://github.com/Qalculate/libqalculate.git;nobranch=1;protocol=https \
+ "
+
+-S = "${WORKDIR}/git"
+-
+ DEPENDS = " \
+     gmp \
+     mpfr \
+diff --git a/recipes-support/libreoffice-dictionaries_25.2.3.bb b/recipes-support/libreoffice-dictionaries_25.2.3.bb
+index 25cfaa3e3814..84634bcbcbf5 100644
+--- a/recipes-support/libreoffice-dictionaries_25.2.3.bb
++++ b/recipes-support/libreoffice-dictionaries_25.2.3.bb
+@@ -12,8 +12,6 @@ LIC_FILES_CHKSUM = " \
+ SRC_URI = "https://download.documentfoundation.org/libreoffice/src/${PV}/libreoffice-dictionaries-${PV}.1.tar.xz"
+ SRC_URI[sha256sum] = "bf7bb02bb5ccce2de73bfc96b2df2edc0e493d7632911027267ad9ffa85e4103"
+
+-S = "${WORKDIR}/libreoffice-${PV}.1"
+-
+ do_configure[noexec] = "1"
+ do_compile[noexec] = "1"
+ do_install() {
+diff --git a/recipes-support/maliit-framework-qt6.inc b/recipes-support/maliit-framework-qt6.inc
+index 3f005c5dc145..94069e9ebc02 100644
+--- a/recipes-support/maliit-framework-qt6.inc
++++ b/recipes-support/maliit-framework-qt6.inc
+@@ -11,7 +11,6 @@ SRC_URI = "git://github.com/maliit/framework.git;branch=qt6-support;protocol=htt
+            file://0002-maliitpluginsconfig-fix-for-qt6.patch \
+            file://0003-shellintegration-qwaylandinputpanelshellintegration-.patch \
+            "
+-S = "${WORKDIR}/git"
+
+ DEPENDS += " \
+     qtbase \
+diff --git a/recipes-support/maliit-keyboard-qt6.inc b/recipes-support/maliit-keyboard-qt6.inc
+index df93ea1ffcde..b4cfb61cb6c0 100644
+--- a/recipes-support/maliit-keyboard-qt6.inc
++++ b/recipes-support/maliit-keyboard-qt6.inc
+@@ -10,7 +10,6 @@ SRC_URI = "git://github.com/maliit/keyboard.git;nobranch=1;protocol=https \
+            file://0001-qml-Fix-for-qt6.patch \
+            file://0001-cmake-add-Qt6-support.patch \
+            "
+-S = "${WORKDIR}/git"
+
+ DEPENDS += " \
+     maliit-framework-qt6 \
+diff --git a/recipes-support/plasma-keyboard_git.bb b/recipes-support/plasma-keyboard_git.bb
+index a86b42fa4a47..1ddf71cef866 100644
+--- a/recipes-support/plasma-keyboard_git.bb
++++ b/recipes-support/plasma-keyboard_git.bb
+@@ -4,4 +4,3 @@
+ require ${BPN}.inc
+ SRC_URI = "git://invent.kde.org/plasma/plasma-keyboard.git;branch=master;protocol=https"
+ SRCREV = "46f3c89b2cecccc60861aa2da5f8eb155889e6ef"
+-S = "${WORKDIR}/git"
+diff --git a/recipes-support/pulseaudio-qt.inc b/recipes-support/pulseaudio-qt.inc
+index c83395c460a8..1b2490297c18 100644
+--- a/recipes-support/pulseaudio-qt.inc
++++ b/recipes-support/pulseaudio-qt.inc
+@@ -26,6 +26,5 @@ EXTRA_OECMAKE:append = " \
+ "
+
+ SRC_URI = "git://invent.kde.org/libraries/${BPN};nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit kf6-cmake
+diff --git a/recipes-support/qml-box2d.inc b/recipes-support/qml-box2d.inc
+index ebc6dbd137ce..bc8d638b9cc8 100644
+--- a/recipes-support/qml-box2d.inc
++++ b/recipes-support/qml-box2d.inc
+@@ -17,7 +17,6 @@ DEPENDS = " \
+ SRC_URI = " \
+     git://github.com/qml-box2d/qml-box2d.git;nobranch=1;protocol=https \
+ "
+-S = "${WORKDIR}/git"
+
+ inherit qt6-cmake
+
+diff --git a/recipes-support/qmltermwidget.inc b/recipes-support/qmltermwidget.inc
+index 6bdb1aaa3e67..c5ff414881e3 100644
+--- a/recipes-support/qmltermwidget.inc
++++ b/recipes-support/qmltermwidget.inc
+@@ -22,7 +22,6 @@ SRC_URI = " \
+     file://0002-Vt102Emulation-improve-QKeyPress-event-management.patch \
+     file://0003-Remove-duplicate-files-from-install.patch \
+ "
+-S = "${WORKDIR}/git"
+
+ inherit qt6-qmake
+
+diff --git a/recipes-support/qtkeychain.inc b/recipes-support/qtkeychain.inc
+index 8c4e325e1b56..bcd03db98b8d 100644
+--- a/recipes-support/qtkeychain.inc
++++ b/recipes-support/qtkeychain.inc
+@@ -16,7 +16,6 @@ DEPENDS = " \
+ "
+
+ SRC_URI = "git://github.com/frankosterfeld/qtkeychain.git;nobranch=1;protocol=https"
+-S = "${WORKDIR}/git"
+
+ inherit qt6-cmake
+ inherit pkgconfig
+diff --git a/recipes-support/sddm/sddm.inc b/recipes-support/sddm/sddm.inc
+index 369a08066f35..22b8d73b5f4f 100644
+--- a/recipes-support/sddm/sddm.inc
++++ b/recipes-support/sddm/sddm.inc
+@@ -33,8 +33,6 @@ SRC_URI = " \
+     file://sddm-greeter.pam \
+ "
+
+-S = "${WORKDIR}/git"
+-
+ inherit qt6-cmake
+ inherit pkgconfig
+ inherit systemd
+diff --git a/recipes-support/simplelogin.inc b/recipes-support/simplelogin.inc
+index 9f37788468d1..8c37a8b270fb 100644
+--- a/recipes-support/simplelogin.inc
++++ b/recipes-support/simplelogin.inc
+@@ -15,7 +15,6 @@ DEPENDS = " \
+ SRC_URI = " \
+     git://invent.kde.org/bshah/${BPN}.git;nobranch=1;protocol=https \
+ "
+-S = "${WORKDIR}/git"
+
+ inherit qt6-cmake
+ inherit systemd
+diff --git a/recipes-support/ttf-noto-cjk_2.003.bb b/recipes-support/ttf-noto-cjk_2.003.bb
+index 8b8ea2a7b817..ec713428fd73 100644
+--- a/recipes-support/ttf-noto-cjk_2.003.bb
++++ b/recipes-support/ttf-noto-cjk_2.003.bb
+@@ -14,8 +14,6 @@ INHIBIT_DEFAULT_DEPS = "1"
+
+ SRC_URI = "https://github.com/googlefonts/noto-cjk/releases/download/Serif${PV}/04_NotoSerifCJKOTC.zip"
+ SRC_URI[sha256sum] = "c76ed8fd491ce98182ec6430238b90a1eabea8857c7db64e9037efa38e198a31"
+-S = "${WORKDIR}/sources-unpack"
+-UNPACKDIR = "${S}"
+
+ PACKAGES = "ttf-noto-cjk"
+ FONT_PACKAGES = "ttf-noto-cjk"
+diff --git a/recipes-support/ttf-noto_2025.11.01.bb b/recipes-support/ttf-noto_2025.11.01.bb
+index 855ed4215837..d9d745a6dfaa 100644
+--- a/recipes-support/ttf-noto_2025.11.01.bb
++++ b/recipes-support/ttf-noto_2025.11.01.bb
+@@ -20,8 +20,6 @@ SRC_URI[sha256sum] = "2c55a0422a8d51425dc2f000e7c67139f1d2756ee93568389bdeb8e2c5
+
+ LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
+
+-S = "${WORKDIR}/git"
+-
+ PACKAGES = "ttf-noto"
+ FONT_PACKAGES = "ttf-noto"
+
+--
+2.51.0

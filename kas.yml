@@ -1,19 +1,57 @@
 header:
   version: 9
 
+distro: spirit-os
+
 repos:
   meta-spirit:
   bitbake:
     url: https://git.openembedded.org/bitbake
-    commit: 8dcf084522b9c66a6639b5f117f554fde9b6b45a
+    commit: af9dd012e7f4d16dccd1d6118be5da94ede68f85
     layers:
       .: disabled
   meta-openembedded-core:
     url: https://git.openembedded.org/openembedded-core
-    commit: d50e4680ed6f930582d907b37c9ed545a89f5c27
+    commit: fa31089d48cac2aa11279e932a77f4dbdc02c02d
     layers:
       meta:
       meta-skeleton:
   meta-raspberrypi:
     url: https://git.yoctoproject.org/git/meta-raspberrypi
-    commit: aaf976a665daa7e520545908adef8a0e9410b57f
+    commit: 046a23892770accf32776bd16a2bf6ad534f42eb
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    commit: d28d0a23615f4d91d125fdcd247a71245087dab3
+    layers:
+      meta-oe:
+      meta-python:
+      meta-multimedia:
+      meta-networking:
+      meta-gnome:
+      meta-perl:
+  meta-kde:
+    url: https://invent.kde.org/packaging/yocto-meta-kde
+    commit: 9a858a8d6ca45403ac7008744658a23c56244fea
+    patches:
+      meta-kde-add-whinlatter-to-LAYERSERIES_COMPAT:
+        repo: meta-spirit
+        path: patches/0001-meta-kde-add-whinlatter-to-LAYERSERIES_COMPAT.patch
+      meta-kde-remove-S-assigment:
+        repo: meta-spirit
+        path: patches/0004-meta-kde-remove-S-assigment.patch
+  meta-kf6: # KDE Framework 6
+    url: https://invent.kde.org/packaging/yocto-meta-kf6
+    commit: 2d20a2d6daffc5790d127585df53430efada539e
+    patches:
+      meta-kf6-add-whinlatter-to-LAYERSERIES_COMPAT:
+        repo: meta-spirit
+        path: patches/0002-meta-kf6-add-whinlatter-to-LAYERSERIES_COMPAT.patch
+      meta-kf6-remove-S-assigment:
+        repo: meta-spirit
+        path: patches/0005-meta-kf6-remove-S-assigment.patch
+  meta-qt6:
+    url: https://code.qt.io/cgit/yocto/meta-qt6
+    commit: c7d71f4cece4d1fe3110c945b9bd40ca82960e05
+local_conf_header:
+  ignore-meta-oe-backports: |
+    BBMASK += "/meta-kde/recipes-meta-oe-backports/"
