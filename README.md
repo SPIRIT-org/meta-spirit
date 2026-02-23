@@ -133,6 +133,19 @@ vncviewer localhost:5900
 
 This can be combined with `serialstdio` to get early boot messages.
 
+Full GUI stacks like Plasma Mobile might require additional RAM.
+
+> VNC while being easy to parse from container can be a bit slow.
+For sanity and ease of development it might be beneficial to parse
+more memory to compensate for that fact.
+
+```sh
+kas-container --runtime-args "-p 5900:5900" shell
+
+# Here we're passing 8Gb
+runqemu slirp publicvnc qemuparams="-m 8192"
+```
+
 ### CM5 - `spirit-phone-cm5`
 
 #### eMMC
