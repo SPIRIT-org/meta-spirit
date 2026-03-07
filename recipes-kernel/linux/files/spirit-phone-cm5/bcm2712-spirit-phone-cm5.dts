@@ -1,0 +1,5 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+#include "bcm2712-rpi-5-b.dts"
+#include "spirit-phone-cm5.dtsi"
