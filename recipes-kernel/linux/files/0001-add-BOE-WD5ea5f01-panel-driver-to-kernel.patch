@@ -1,0 +1,36 @@
+From 3cd3f795d8b6a62d194b293d26b4bda8b62f0c9e Mon Sep 17 00:00:00 2001
+From: Tymoteusz Burak <tymbur@gmail.com>
+Date: Sun, 8 Mar 2026 03:07:06 +0000
+Subject: [PATCH] add BOE WD5ea5f01 panel driver to kernel
+
+---
+ drivers/gpu/drm/panel/Kconfig  | 6 ++++++
+ drivers/gpu/drm/panel/Makefile | 1 +
+ 2 files changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 307dd2c0fae4..7b193461fa33 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -867,4 +867,10 @@ config DRM_PANEL_XINPENG_XPP055C272
+ 	  Say Y here if you want to enable support for the Xinpeng
+ 	  XPP055C272 controller for 720x1280 LCD panels with MIPI/RGB/SPI
+ 	  system interfaces.
++
++config DRM_PANEL_BOE_WD5EA5F01
++    tristate "BOE WD5EA5F01 MIPI-DSI panel"
++    depends on DRM_MIPI_DSI
++    help
++      DRM driver for the BOE WD5EA5F01 1080p MIPI-DSI display panel.
+ endmenu
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 9dd9b3503802..e3fcad84dd05 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -88,3 +88,4 @@ obj-$(CONFIG_DRM_PANEL_VISIONOX_R66451) += panel-visionox-r66451.o
+ obj-$(CONFIG_DRM_PANEL_WAVESHARE_TOUCHSCREEN) += panel-waveshare-dsi.o
+ obj-$(CONFIG_DRM_PANEL_WIDECHIPS_WS2401) += panel-widechips-ws2401.o
+ obj-$(CONFIG_DRM_PANEL_XINPENG_XPP055C272) += panel-xinpeng-xpp055c272.o
++obj-$(CONFIG_DRM_PANEL_BOE_WD5EA5F01) += panel-boe-wd5ea5f01.o
+--
+2.44.4
