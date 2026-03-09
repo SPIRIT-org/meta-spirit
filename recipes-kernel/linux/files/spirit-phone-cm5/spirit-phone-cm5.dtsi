@@ -34,5 +34,117 @@
 			};
 		};
 	};
+
+	/* Panel Regulators */
+	reg_vddio: regulator-vddio {
+		compatible = "regulator-fixed";
+		regulator-name = "vddio";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+		gpio = <&gpio 12 GPIO_ACTIVE_HIGH>; /* PANEL_1.8V_EN */
+		enable-active-high;
+		startup-delay-us = <5000>;
+	};
+
+	reg_vci: regulator-vci {
+		compatible = "regulator-fixed";
+		regulator-name = "vci";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&gpio 6 GPIO_ACTIVE_HIGH>; /* PANEL_3.3V_EN */
+		enable-active-high;
+		startup-delay-us = <5000>;
+	};
+
+	reg_avdd: regulator-avdd {
+		compatible = "regulator-fixed";
+		regulator-name = "avdd";
+		regulator-min-microvolt = <7600000>;
+		regulator-max-microvolt = <7600000>;
+		gpio = <&gpio 5 GPIO_ACTIVE_HIGH>; /* PANEL_AVDD_EN */
+		enable-active-high;
+		startup-delay-us = <10000>;
+	};
+
+	/* TPS65131 enable */
+	reg_elbias: regulator-elbias {
+		compatible = "regulator-fixed";
+		regulator-name = "elvdd";
+		gpio = <&gpio 13 GPIO_ACTIVE_HIGH>; /* TPS65131_EN */
+		enable-active-high;
+		startup-delay-us = <10000>;
+	};
+};
+
+/* DSI1 Panel Configuration */
+&dsi1 {
+	status = "okay";
+
+	panel@0 {
+		compatible = "boe,wd5ea5f01";
+		reg = <0>;
+
+		dsi-lanes = <4>;
+		video-mode;
+
+		width-mm  = <68>;
+		height-mm = <121>;
+
+		/* Panel GPIOs */
+		reset-gpios  = <&gpio 26 GPIO_ACTIVE_LOW>;   // PANEL_RESET
+		enable-gpios = <&gpio 16 GPIO_ACTIVE_HIGH>;  // PANEL_EN
+		// te-gpios     = <&gpio 23 GPIO_ACTIVE_HIGH>;  // TE is temporarely disabled for testing
+
+		/* Regulators (names must match driver) */
+		vddio-supply = <&reg_vddio>;
+		vci-supply   = <&reg_vci>;
+		avdd-supply  = <&reg_avdd>;
+		elvdd-supply = <&reg_elbias>;
+
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dsi1_out>;
+			};
+		};
+
+		panel-timing {
+			clock-frequency = <150850000>; // Correct pixel clock
+
+			hactive = <1080>;
+			vactive = <1920>;
+
+			hfront-porch = <100>;
+			hsync-len    = <8>;
+			hback-porch  = <100>;
+
+			vfront-porch = <21>;
+			vsync-len    = <4>;
+			vback-porch  = <7>;
+
+			hsync-active    = <0>;
+			vsync-active    = <0>;
+			de-active       = <1>;
+			pixelclk-active = <0>;
+		};
+	};
+};
+
+/* Touchscreen — Goodix GT1151 */
+&i2c1 {
+	status = "okay";
+
+	touchscreen@14 {
+		compatible = "goodix,gt1151";
+		reg = <0x14>;
+
+		interrupt-parent = <&gpio>;
+		interrupts = <17 IRQ_TYPE_EDGE_FALLING>; /* TSP_ATTN */
+
+		irq-gpios   = <&gpio 17 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
+
+		touchscreen-size-x = <1080>;
+		touchscreen-size-y = <1920>;
+	};
 };
 
