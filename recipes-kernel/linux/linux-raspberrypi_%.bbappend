@@ -22,4 +22,4 @@ do_patch:append:spirit-phone-cm5() {
 KERNEL_DEVICETREE:append:spirit-phone-cm5 = " broadcom/bcm2712-spirit-phone-cm5.dtb"
 
 # Equivalent of CONFIG_DRM_PANEL_BOE_WD5EAF01=y
-KERNEL_CONFIG_ENABLE:append:spirit-phone-cm5 = " DRM_PANEL_BOE_WD5EAF01"
+KERNEL_CONFIG_ENABLE:append:spirit-phone-cm5 = " DRM_PANEL_BOE_WD5EA5F01"
