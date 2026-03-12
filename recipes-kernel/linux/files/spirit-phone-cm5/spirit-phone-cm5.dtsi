@@ -101,12 +101,6 @@
 		avdd-supply  = <&reg_avdd>;
 		elvdd-supply = <&reg_elbias>;
 
-		port {
-			panel_in: endpoint {
-				remote-endpoint = <&dsi1_out>;
-			};
-		};
-
 		panel-timing {
 			clock-frequency = <150850000>; // Correct pixel clock
 
