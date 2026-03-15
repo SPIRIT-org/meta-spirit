@@ -1,0 +1,5 @@
+repos:
+  - repo: https://github.com/priv-kweihmann/oelint-adv
+    rev: 9.5.1
+    hooks:
+      - id: oelint-adv
