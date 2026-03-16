@@ -34,5 +34,173 @@
 			};
 		};
 	};
+
+	/* Panel Regulators */
+	reg_vddio: regulator-vddio {
+		compatible = "regulator-fixed";
+		regulator-name = "vddio";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+		gpio = <&gpio 12 GPIO_ACTIVE_HIGH>; /* PANEL_1.8V_EN */
+		enable-active-high;
+		startup-delay-us = <5000>;
+	};
+
+	reg_vci: regulator-vci {
+		compatible = "regulator-fixed";
+		regulator-name = "vci";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&gpio 6 GPIO_ACTIVE_HIGH>; /* PANEL_3.3V_EN */
+		enable-active-high;
+		startup-delay-us = <5000>;
+	};
+
+	reg_avdd: regulator-avdd {
+		compatible = "regulator-fixed";
+		regulator-name = "avdd";
+		regulator-min-microvolt = <7600000>;
+		regulator-max-microvolt = <7600000>;
+		gpio = <&gpio 5 GPIO_ACTIVE_HIGH>; /* PANEL_AVDD_EN */
+		enable-active-high;
+		startup-delay-us = <10000>;
+	};
+
+	/* TPS65131 enable */
+	reg_elbias: regulator-elbias {
+		compatible = "regulator-fixed";
+		regulator-name = "elvdd";
+		gpio = <&gpio 13 GPIO_ACTIVE_HIGH>; /* TPS65131_EN */
+		enable-active-high;
+		startup-delay-us = <10000>;
+	};
+
 };
 
+/* DSI1 Panel Configuration */
+&dsi1 {
+	status = "okay";
+
+	panel@0 {
+		compatible = "boe,wd5ea5f01";
+		reg = <0>;
+
+		dsi-lanes = <4>;
+		video-mode;
+
+		width-mm = <68>;
+		height-mm = <121>;
+
+		/* Panel GPIOs */
+		reset-gpios  = <&gpio 26 GPIO_ACTIVE_LOW>;   // PANEL_RESET
+		enable-gpios = <&gpio 16 GPIO_ACTIVE_HIGH>;  // PANEL_EN
+		// te-gpios     = <&gpio 23 GPIO_ACTIVE_HIGH>;  // TE is temporarely disabled for testing
+
+		/* Regulators (names must match driver) */
+		vddio-supply = <&reg_vddio>;
+		vci-supply   = <&reg_vci>;
+		avdd-supply  = <&reg_avdd>;
+		elvdd-supply = <&reg_elbias>;
+
+		panel-timing {
+			clock-frequency = <150850000>; // Correct pixel clock
+
+			hactive = <1080>;
+			vactive = <1920>;
+
+			hfront-porch = <100>;
+			hsync-len = <8>;
+			hback-porch  = <100>;
+
+			vfront-porch = <21>;
+			vsync-len    = <4>;
+			vback-porch  = <7>;
+
+			hsync-active    = <0>;
+			vsync-active    = <0>;
+			de-active       = <1>;
+			pixelclk-active = <0>;
+		};
+	};
+};
+
+/* Touchscreen — Goodix GT1151 */
+&i2c1 {
+	status = "okay";
+
+	touchscreen@14 {
+		compatible = "goodix,gt1151";
+		reg = <0x14>;
+
+		interrupt-parent = <&gpio>;
+		interrupts = <17 IRQ_TYPE_EDGE_FALLING>; /* TSP_ATTN */
+
+		irq-gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpio 27 GPIO_ACTIVE_HIGH>;
+
+		touchscreen-size-x = <1080>;
+		touchscreen-size-y = <1920>;
+	};
+};
+
+// Audio Codec - TLV320AIC3104 
+// I2C not decided, status disabled 
+&i2c2 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "disabled";
+
+	tlv320aic3104: tlv320aic3204@18 {
+		#sound-dai-cells = <0>;
+		compatible = "ti,tlv320aic3204";
+		reg = <0x18>; 
+		status = "disabled"; // will be enabled once I2C bus is determined
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&codec_mclk_gpio4>;
+
+		clocks = <&rp1_clocks RP1_CLK_GP0>;
+		clock-names = "mclk";
+		assigned-clocks = <&rp1_clocks RP1_CLK_GP0>;
+		assigned-clock-rates = <12288000>; /* 12.288 MHz */
+
+		reset-gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
+
+		ai3x-micbias-vg = <2>; // set MICBIAS to 2.5v
+
+		AVDD-supply = <&tlv_1v8>;
+		IOVDD-supply = <&tlv_3v3>;
+		DRVDD-supply = <&tlv_3v3>;
+		DVDD-supply = <&tlv_1v8>;
+	};
+};
+
+&{/} {
+	/* TLV320 supply rails without GPIO enables (dummies for now) */
+	tlv_1v8: regulator-tlv-1v8 {
+		compatible = "regulator-fixed";
+		regulator-name = "tlv_1v8";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+		regulator-boot-on;
+		regulator-always-on;
+	};
+
+	tlv_3v3: regulator-tlv-3v3 {
+		compatible = "regulator-fixed";
+		regulator-name = "tlv_3v3";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-boot-on;
+		regulator-always-on;
+	};
+};
+
+/* Set GPIO4 to GPCLK0 */
+&gpio {
+    codec_mclk_gpio4: codec_mclk_gpio4 {
+		pins = "gpio4";
+		function = "gpclk0";
+		bias-disable;
+    };
+};
