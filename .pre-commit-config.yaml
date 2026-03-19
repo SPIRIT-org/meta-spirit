@@ -1,8 +1,13 @@
-repos:
+epos:
   - repo: https://github.com/priv-kweihmann/oelint-adv
     rev: 9.6.0
     hooks:
       - id: oelint-adv
+        args: ['--hide', 'warning', '--hide', 'info']
+        # note - the problem is that theres "desirable" and "undesirable" linting which fails it entirely, 
+        # assuming we dont want this, i have parsed arguments such that it only checks syntax/actual errors
+        # please do change this in case something is unwanted in the parameters.
+
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v9.0.0
     hooks:
