@@ -19,6 +19,10 @@ repos:
   meta-raspberrypi:
     url: https://git.yoctoproject.org/git/meta-raspberrypi
     commit: 046a23892770accf32776bd16a2bf6ad534f42eb
+    patches:
+      meta-kde-add-whinlatter-to-LAYERSERIES_COMPAT:
+        repo: meta-spirit
+        path: patches/0007-meta-raspberrypi-libpisp-remove-build_rpath.patch
   meta-openembedded:
     url: https://git.openembedded.org/meta-openembedded
     commit: d28d0a23615f4d91d125fdcd247a71245087dab3

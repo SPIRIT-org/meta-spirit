@@ -1,0 +1,71 @@
+# Taken from https://lists.yoctoproject.org/g/yocto/message/66323?p=%2C%2C%2C20%2C0%2C0%2C0%3A%3Acreated%2C%2Clibpisp%2C20%2C2%2C0%2C118257841
+
+Add patch to delete rpath in meson.build, since yocto does not need to
+run libpisp at build directory. Strip removes the symbol but left the
+rpath string in other sections, like dynstr. Remove it to fix
+reproducibility builds issues.
+
+Signed-off-by: Jianpeng Chang <jianpeng.chang.cn@...>
+---
+ ...ld_rpath-to-fix-reproducibility-issu.patch | 38 +++++++++++++++++++
+ .../libpisp/libpisp_1.3.0.bb                  |  2 +
+ 2 files changed, 40 insertions(+)
+ create mode 100644 dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp/0001-build-Remove-build_rpath-to-fix-reproducibility-issu.patch
+
+diff --git a/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp/0001-build-Remove-build_rpath-to-fix-reproducibility-issu.patch b/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp/0001-build-Remove-build_rpath-to-fix-reproducibility-issu.patch
+new file mode 100644
+index 0000000..593a1ec
+--- /dev/null
++++ b/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp/0001-build-Remove-build_rpath-to-fix-reproducibility-issu.patch
+@@ -0,0 +1,38 @@
++From b3c5a94674b397d7003f2ea32d5c19f91b8315d9 Mon Sep 17 00:00:00 2001
++From: Jianpeng Chang <jianpeng.chang.cn@...>
++Date: Wed, 11 Mar 2026 06:10:21 +0000
++Subject: [PATCH] build: Remove build_rpath to fix reproducibility issues
++
++The build_rpath setting in meson.build embeds the absolute build directory
++path into the library's RUNPATH, causing non-reproducible builds when the
++build directory name varies between builds.
++
++This was introduced in upstream commit 6ca92c34f4f6 ("backend: Allow local
++builds to use the src backend_default_config.json") to allow running
++binaries directly from the build directory during development.
++
++Remove it in yocto, since the library will be installed to standard
++library path.
++
++Upstream-Status: Inappropriate [OE specific]
++
++Signed-off-by: Jianpeng Chang <jianpeng.chang.cn@...>
++---
++ src/meson.build | 1 -
++ 1 file changed, 1 deletion(-)
++
++diff --git a/src/meson.build b/src/meson.build
++index 6ace2ff..ab8a95a 100644
++--- a/src/meson.build
+++++ b/src/meson.build
++@@ -52,7 +52,6 @@ libpisp = library(
++     include_directories : include_directories(inc_dirs),
++     name_prefix : '',
++     install : true,
++-    build_rpath : meson.project_source_root(),
++     dependencies : pisp_deps,
++ )
++
++--
++2.51.2
++
+diff --git a/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp_1.3.0.bb b/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp_1.3.0.bb
+index b6275b2..181d6d1 100644
+--- a/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp_1.3.0.bb
++++ b/dynamic-layers/multimedia-layer/recipes-multimedia/libpisp/libpisp_1.3.0.bb
+@@ -11,4 +11,6 @@ SRCREV = "9ba67e6680f03f31f2b1741a53e8fd549be82cbe"
+
+ DEPENDS = "nlohmann-json"
+
++SRC_URI += "file://0001-build-Remove-build_rpath-to-fix-reproducibility-issu.patch"
++
+ inherit meson pkgconfig
+--
+2.53.0
