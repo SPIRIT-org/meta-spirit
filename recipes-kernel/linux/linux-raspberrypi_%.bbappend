@@ -8,9 +8,9 @@ SRC_URI:append:spirit-phone-cm5 = " \
 
 do_configure:append:spirit-phone-cm5() {
     # Copy custom dtsi into kernel DTS tree
-    cp ${WORKDIR}/spirit-phone-cm5.dtsi \
+    cp ${WORKDIR}/sources/spirit-phone-cm5.dtsi \
        ${S}/arch/arm64/boot/dts/broadcom/
-    cp ${WORKDIR}/bcm2712-spirit-phone-cm5.dts \
+    cp ${WORKDIR}/sources/bcm2712-spirit-phone-cm5.dts \
        ${S}/arch/arm64/boot/dts/broadcom/
 }
 
