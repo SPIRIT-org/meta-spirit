@@ -1,0 +1,14 @@
+name: pre-commit # name of the workflow (opt)
+on:
+  pull_request:  # this should be triggered when the workflow has stared prior to push
+  push:
+    branches: [main] # run when a PR is opened/updated (branch main)
+                     # also runs on every push to the main branch
+
+jobs:                          
+  pre-commit:                   # 
+    runs-on: ubuntu-latest      # [VM]: should we change this?
+    steps:                      
+      - uses: actions/checkout@v4      # S1: checkout the repository
+      - uses: actions/setup-python@v5  # S2: install python version
+      - uses: pre-commit/action@v3.0.1 # S3: we will run pre‑commit action hook(s)
