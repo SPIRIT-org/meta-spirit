@@ -1,7 +1,5 @@
 # Contributing to meta-spirit
 
-Thank you for your interest in contributing! This document outlines how to set up your development environment and follow our code conventions.
-
 ## Development Environment
 
 ### Requirements
@@ -13,11 +11,12 @@ Thank you for your interest in contributing! This document outlines how to set u
 
 ### Pre-commit Setup
 
-This repository uses `pre-commit` to enforce code quality and commit conventions. Contributors are expected to run pre-commit before submitting changes.
+This repository uses `pre-commit` to enforce code quality and commit conventions. 
+As a result, contributors are encouraged to run pre-commit before submitting changes!
 
 #### Installation
 
-Choose one of the following methods:
+You can either choose one of the following methods or as per what is needed:
 
 **Global install (user-wide):**
 ```sh
@@ -31,21 +30,16 @@ source .venv/bin/activate
 pip install pre-commit
 ```
 
-**Nix shell:**
-```sh
-nix develop
-```
-
 #### Usage
 
-After installing, install the hooks:
+After installing, install the hooks (in the forked directory):
 ```sh
 pre-commit install
 ```
 
 Run on all files:
 ```sh
-pre-commit run --all-files
+pre-commit run --all-files # make sure it all passes
 ```
 
 ## Code Conventions
@@ -78,12 +72,7 @@ chore: update pre-commit configuration
 
 ### Pull Requests
 
-- All commits must pass pre-commit checks
+- You should and must ensure that ALL your commits pass pre-commit checks
 - PRs are automatically checked by GitHub Actions
-- Use conventional commit messages in PR titles and descriptions
-- Ensure `pre-commit run --all-files` passes before submitting
-
-## Getting Help
-
-- Open an issue at https://github.com/Synthxyl704/meta-spirit/issues
-- Check existing issues and discussions before creating new ones
+- Use conventional commit messages in PR titles and descriptions 
+- Again, ensure `pre-commit run --all-files` passes before submitting 
